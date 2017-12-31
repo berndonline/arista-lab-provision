@@ -1,0 +1,16 @@
+ip routing
+
+{% if bgp_fabric is defined %}
+logging level BGP errors
+router bgp {{ bgp_fabric.asn }}
+   router-id {{ bgp_fabric.router_id }}
+   maximum-paths 4 ecmp 4
+{% for item in bgp_fabric.neighbor %}
+   neighbor {{ item.address }} remote-as {{ item.remote_as }}
+   neighbor {{ item.address }} send-community
+   neighbor {{ item.address }} maximum-routes 12000
+{% endfor %}
+{% for item in bgp_fabric.networks %}
+   network {{ item }}
+{% endfor %}
+{% endif %}

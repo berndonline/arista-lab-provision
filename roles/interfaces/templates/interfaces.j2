@@ -1,0 +1,19 @@
+{% if loopback is defined %}
+interface Loopback0
+   ip address {{ loopback }}
+{% endif %}
+
+{% if interfaces is defined %}
+{% for port, value in interfaces.items() %}
+interface {{ port }}
+{% if 'alias' in value %}
+   description {{ value.alias }}
+{% endif %}
+{% if 'port_state' in value %}
+   {{ value.port_state }}
+{% endif %}
+{% if 'address' in value %}
+   ip address {{ value.address }}
+{% endif %}
+{% endfor %}
+{% endif %}

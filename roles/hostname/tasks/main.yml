@@ -1,0 +1,7 @@
+---
+
+- name: write hostname and domain name
+  eos_system:
+    hostname: '{{ inventory_hostname }}'
+    domain_name: '{{ domain_name }}'
+    provider: '{{ cli }}'

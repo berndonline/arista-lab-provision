@@ -1,0 +1,24 @@
+---
+
+loopback: 10.255.0.4/32
+
+bgp_fabric:
+  asn: 65002
+  router_id: 10.255.0.4
+  neighbor:
+    - {address: 10.0.255.9, remote_as: 65000}
+    - {address: 10.0.255.13, remote_as: 65000}
+  networks:
+    - 10.255.0.4/32
+
+interfaces:
+  Ethernet1:
+    alias: uplink-spine-1
+    port_state: no switchport
+    address: 10.0.255.10/30
+  Ethernet2:
+    alias: uplink-spine-2
+    port_state: no switchport
+    address: 10.0.255.14/30
+  Ethernet3:
+    alias: peerlink-leaf-1

@@ -1,0 +1,6 @@
+---
+
+- name: write routing configuration
+  eos_config: 
+    src: templates/routing.j2
+    provider: '{{ cli }}'

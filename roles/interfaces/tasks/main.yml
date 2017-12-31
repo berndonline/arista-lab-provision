@@ -1,0 +1,6 @@
+---
+
+- name: write interface configuration
+  eos_config:
+    src: templates/interfaces.j2
+    provider: '{{ cli }}'
