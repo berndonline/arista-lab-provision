@@ -1,56 +1,26 @@
 ---
 
-loopback: 10.255.0.9/32
+loopback: 10.255.0.7/32
 
 bgp_fabric:
-  asn: 65007
-  router_id: 10.255.0.9
+  asn: 65005
+  router_id: 10.255.0.7
   neighbor:
-    - swp51
-    - swp52
-
-bgp_networks:
-  - 10.255.0.9/32
-  - 10.255.100.4/32
-  - 10.0.3.0/24
-
-bgp_evpn: true
-bgp_advertise_vni: true
-
-peerlink:
-  bond_slaves: swp53 swp54
-  mtu: 9216
-  vlan: 4091
-  address: 169.254.1.1/30
-  clagd_peer_ip: 169.254.1.2
-  clagd_backup_ip: 192.168.100.10
-  clagd_sys_mac: 44:38:39:FF:40:91
-  clagd_priority: 4096
-
-bridge:
-  ports: peerlink bond0 bond1 vxlan10201
-  vids: 103 201
-
-vlans:
-  103:
-    alias: prod-server-103
-    vipv4: 10.0.3.254/24
-    vmac: 00:00:5e:00:01:03
-    pipv4: 10.0.3.252/24
-
-vxlans:
-  10201:
-    alias: prod-server-10201
-    vxlan_local_tunnelip: 10.255.0.9
-    bridge_access: 201
-    bridge_learning: 'off'
-    bridge_arp_nd_suppress: 'on'
+    - {address: 10.0.255.33, remote_as: 65000}
+    - {address: 10.0.255.37, remote_as: 65000}
+  networks:
+    - 10.255.0.7/32
+    - 10.0.255.32/30
+    - 10.0.255.36/30
 
 interfaces:
-  swp51:
+  Ethernet1:
     alias: uplink-spine-1
-    address: "{{ loopback }}"
-
-  swp52:
+    port_state: no switchport
+    address: 10.0.255.34/30
+  Ethernet2:
     alias: uplink-spine-2
-    address: "{{ loopback }}"
+    port_state: no switchport
+    address: 10.0.255.38/30
+  Ethernet3:
+    alias: peerlink-leaf-6

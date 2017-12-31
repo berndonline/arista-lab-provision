@@ -10,6 +10,8 @@ bgp_fabric:
     - {address: 10.0.255.13, remote_as: 65000}
   networks:
     - 10.255.0.4/32
+    - 10.0.255.8/30
+    - 10.0.255.12/30
 
 interfaces:
   Ethernet1:
