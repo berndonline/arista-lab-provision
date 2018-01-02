@@ -6,5 +6,4 @@
       - ntp server {{ item }}
       - clock timezone {{ timezone }}
     provider: '{{ cli }}'
-  with_items:
-      - "{{ ntp }}"
+  with_items: '{{ ntp }}'
