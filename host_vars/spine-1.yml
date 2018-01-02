@@ -10,16 +10,12 @@ bgp_fabric:
     - {address: 10.0.255.10, remote_as: 65002}
     - {address: 10.0.255.18, remote_as: 65003}
     - {address: 10.0.255.26, remote_as: 65004}
-    - {address: 10.0.255.34, remote_as: 65005}
-    - {address: 10.0.255.42, remote_as: 65006}
   networks:
     - 10.255.0.1/32
     - 10.0.255.0/30
     - 10.0.255.8/30
     - 10.0.255.16/30
     - 10.0.255.24/30
-    - 10.0.255.32/30
-    - 10.0.255.40/30
 
 interfaces:
   Ethernet1:
@@ -38,12 +34,3 @@ interfaces:
     alias: downlink-leaf-4
     port_state: no switchport
     address: 10.0.255.25/30
-  Ethernet5:
-    alias: downlink-leaf-5
-    port_state: no switchport
-    address: 10.0.255.33/30
-  Ethernet6:
-    alias: downlink-leaf-6
-    port_state: no switchport
-    address: 10.0.255.41/30
-

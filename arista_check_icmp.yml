@@ -1,0 +1,64 @@
+---
+
+- hosts: leaf
+
+  connection: local
+  gather_facts: 'False'
+
+  vars:
+    cli:
+      username: vagrant
+      password: vagrant
+
+  tasks:
+    - name: validate connection from leaf-1
+      eos_command:
+        commands:
+          - "ping {{ item }}"
+        provider: '{{ cli }}'
+      when: "'leaf-1' in inventory_hostname"
+      register: result
+      failed_when: "'connect: Network is unreachable' in result.stdout"
+      with_items:
+        - '10.255.0.4'
+        - '10.255.0.5'
+        - '10.255.0.6'
+
+    - name: validate connection from leaf-2
+      eos_command:
+        commands:
+          - "ping {{ item }}"
+        provider: '{{ cli }}'
+      when: "'leaf-2' in inventory_hostname"
+      register: result
+      failed_when: "'connect: Network is unreachable' in result.stdout"
+      with_items:
+        - '10.255.0.3'
+        - '10.255.0.5'
+        - '10.255.0.6'
+
+    - name: validate connection from leaf-3
+      eos_command:
+        commands:
+          - "ping {{ item }}"
+        provider: '{{ cli }}'
+      when: "'leaf-3' in inventory_hostname"
+      register: result
+      failed_when: "'connect: Network is unreachable' in result.stdout"
+      with_items:
+        - '10.255.0.3'
+        - '10.255.0.4'
+        - '10.255.0.6'
+
+    - name: validate connection from leaf-4
+      eos_command:
+        commands:
+          - "ping {{ item }}"
+        provider: '{{ cli }}'
+      when: "'leaf-4' in inventory_hostname"
+      register: result
+      failed_when: "'connect: Network is unreachable' in result.stdout"
+      with_items:
+        - '10.255.0.3'
+        - '10.255.0.4'
+        - '10.255.0.5'

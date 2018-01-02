@@ -1,2 +1,10 @@
 ---
 
+- name: write ntp configuration
+  eos_config:
+    lines:
+      - ntp server {{ item }}
+      - clock timezone {{ timezone }}
+    provider: '{{ cli }}'
+  with_items:
+      - "{{ ntp }}"

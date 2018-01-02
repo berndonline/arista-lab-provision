@@ -10,11 +10,9 @@
       username: vagrant
       password: vagrant
 
-  handlers:
-
   roles:
     - leafgroups
     - hostname
     - interfaces
     - routing
-#    - ntp
+    - ntp

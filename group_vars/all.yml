@@ -3,7 +3,7 @@
 ntp:
   - '216.239.35.8'
 
-timezone: Etc/UTC
+timezone: UTC
 
 domain_name: lab.local
 
@@ -14,6 +14,3 @@ clag_pairs:
   leafgroup2:
     - leaf-3
     - leaf-4
-  leafgroup3:
-    - leaf-5
-    - leaf-6
