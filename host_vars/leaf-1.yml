@@ -12,6 +12,31 @@ bgp_fabric:
     - 10.255.0.3/32
     - 10.0.255.0/30
     - 10.0.255.4/30
+    - 10.0.101.0/24
+
+spanning_tree:
+  mode: mstp
+  disabled_vlans: 4094
+
+mlag:
+  domain_id: mlag-10
+  local_interface: Vlan4094
+  peer_address: 169.254.1.1
+  primary_priority: 10
+  peer_link: Ethernet3
+
+vlans:
+  4094:
+    alias: peerlink-vlan
+    pipv4: 169.254.1.2/30
+    trunk_group: mlagpeer
+    options: no autostate
+  101:
+    alias: prod-server-101
+    vipv4: 10.0.101.254
+    pipv4: 10.0.101.252/24
+
+virtual_router_mac_address: 00:1c:73:00:00:99
 
 interfaces:
   Ethernet1:
@@ -24,3 +49,5 @@ interfaces:
     address: 10.0.255.6/30
   Ethernet3:
     alias: peerlink-leaf-2
+    port_state: switchport mode trunk
+    switchport_trunk: group mlagpeer

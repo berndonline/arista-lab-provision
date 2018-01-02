@@ -1,3 +1,18 @@
+{% if spanning_tree is defined %}
+spanning-tree mode {{ spanning_tree.mode }}
+no spanning-tree vlan {{ spanning_tree.disabled_vlans }}
+{% endif %}
+
+{% if vlans is defined %}
+{% for vlan, value in vlans.items() %}
+vlan {{ vlan }}
+   name {{ value.alias }}
+{% if 'trunk_group' in value %}
+   trunk group {{ value.trunk_group }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
 {% if loopback is defined %}
 interface Loopback0
    ip address {{ loopback }}
@@ -12,8 +27,43 @@ interface {{ port }}
 {% if 'port_state' in value %}
    {{ value.port_state }}
 {% endif %}
+{% if 'switchport_trunk' in value %}
+   switchport trunk {{ value.switchport_trunk }}
+{% endif %}
+{% if 'channel_group' in value %}
+   channel-group {{ value.channel_group }} mode active
+{% endif %}
 {% if 'address' in value %}
    ip address {{ value.address }}
 {% endif %}
 {% endfor %}
+{% endif %}
+
+{% if vlans is defined %}
+{% for vlan, value in vlans.items() %}
+interface vlan{{ vlan }}
+   description {{ value.alias }}
+{% if 'options' in value %}
+   {{ value.options }}
+{% endif %}
+{% if 'pipv4' in value %}
+   ip address {{ value.pipv4 }}
+{% endif %}
+{% if 'vipv4' in value %}
+   ip virtual-router address {{ value.vipv4 }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if virtual_router_mac_address is defined %}
+ip virtual-router mac-address {{ virtual_router_mac_address }}
+{% endif %}
+
+{% if mlag is defined %}
+mlag configuration
+   domain-id {{ mlag.domain_id }} 
+   local-interface {{ mlag.local_interface }}
+   peer-address {{ mlag.peer_address }}
+   primary-priority {{ mlag.primary_priority }}
+   peer-link {{ mlag.peer_link }}
 {% endif %}
